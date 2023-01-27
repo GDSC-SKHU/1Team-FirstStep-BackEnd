@@ -1,5 +1,6 @@
 package gdsc.com.firststep.post.entity;
 
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "posts")
-public class Posts extends BaseTimeEntity {
+public class Posts {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
@@ -24,6 +25,9 @@ public class Posts extends BaseTimeEntity {
 
     private String author;
 
+    @ManyToOne(targetEntity = Categories.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "categories_id") // 외래키
+    private Categories categories;
     @Builder
     public Posts(String title, String content, String author) {
         this.title = title;

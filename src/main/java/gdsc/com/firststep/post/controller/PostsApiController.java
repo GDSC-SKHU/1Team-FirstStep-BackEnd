@@ -20,12 +20,12 @@ public class PostsApiController {
     private final PostsService postsService;
 
     // 게시글 생성
-    @PostMapping("/api/posts")
+    @PostMapping("/api/categories")
     public Long save(@RequestBody PostsSaveRequestDto requestDto) {
         return postsService.save(requestDto);
     }
     // 게시글 전체 조회
-    @GetMapping("api/posts")
+    @GetMapping("/api/categories")
     public ResponseEntity<List<PostsListResponseDto>> findAllDesc() {
         List<PostsListResponseDto> response = postsService.findAllDesc();
 
@@ -37,18 +37,18 @@ public class PostsApiController {
         return ResponseEntity.ok(response);
     }
     // 특정 게시글 조회
-    @GetMapping("/api/posts/{id}")
+    @GetMapping("/api/categories/{id}")
     public PostsResponseDto findById (@PathVariable Long id) {
         return postsService.findById(id);
     }
     // 게시글 수정
-    @PostMapping("/api/posts/{id}")
+    @PostMapping("/api/categories/{id}")
     public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto) {
         return postsService.update(id, requestDto);
     }
 
     // 게시글 삭제
-    @DeleteMapping("/api/posts/{id}")
+    @DeleteMapping("/api/categories/{id}")
     public Long delete(@PathVariable Long id) {
         postsService.delete(id);
         return id;
