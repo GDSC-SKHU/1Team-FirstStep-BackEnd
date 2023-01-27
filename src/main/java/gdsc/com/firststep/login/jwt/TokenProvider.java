@@ -3,7 +3,6 @@ package gdsc.com.firststep.login.jwt;
 import gdsc.com.firststep.login.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

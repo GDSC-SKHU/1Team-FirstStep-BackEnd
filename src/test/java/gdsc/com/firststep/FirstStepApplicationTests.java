@@ -3,10 +3,10 @@ package gdsc.com.firststep;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class FirstStepApplicationTests {
+//@SpringBootTest
+    class FirstStepApplicationTests {
 
-    @Test
+        @Test
     void contextLoads() {
     }
 

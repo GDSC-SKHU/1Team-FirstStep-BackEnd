@@ -3,8 +3,6 @@ package gdsc.com.firststep.post.dto;
 import gdsc.com.firststep.post.entity.Posts;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
-
 @Getter
 public class PostsListResponseDto {
     private Long id;

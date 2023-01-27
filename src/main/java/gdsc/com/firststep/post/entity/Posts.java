@@ -1,6 +1,7 @@
 package gdsc.com.firststep.post.entity;
 
 
+import gdsc.com.firststep.login.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,11 @@ public class Posts {
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "nickname") // 외래키
+    private User users;
+
 
     private String author;
 

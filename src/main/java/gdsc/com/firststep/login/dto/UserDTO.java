@@ -1,9 +1,12 @@
 package gdsc.com.firststep.login.dto;
 
+import gdsc.com.firststep.post.entity.Posts;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
