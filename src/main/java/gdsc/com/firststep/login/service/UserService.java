@@ -1,34 +1,39 @@
-package com.example.jwtexample.service;
+package gdsc.com.firststep.login.service;
 
-import com.example.jwtexample.domain.DTO.TokenDTO;
-import com.example.jwtexample.jwt.TokenProvider;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
+import gdsc.com.firststep.login.domain.User;
+import gdsc.com.firststep.login.domain.UserRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
-@Transactional(readOnly = true)
-@RequiredArgsConstructor
-public class MemberService {
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-    private final TokenProvider tokenProvider;
+public class UserService {
 
-    @Transactional
-    public TokenDTO login(String memberId, String password) {
-        // 1. ID/PW 를 기반으로 Authentication 객체 생성
-        // 이때 authentication 객체는 인증 여부를 확인하는 authenticated 값이 false
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(memberId, password);
+    @Autowired
+    private UserRepository userRepository;
 
-        // 2. 실제 검증(사용자 비밀번호 체크)이 이루어지는 부분
-        // authenticate 매서드가 실행될 때 JwtUserDetailsService 에서 만든 loadUserByUsername 메서드가 실행
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+    public User create(final User user) {
+        if(user == null || user.getUserId() == null ) {
+            throw new RuntimeException("Invalid arguments");
+        }
+        final String userId = user.getUserId();
+        if(userRepository.existsByUserId(userId)) {
+            log.warn("userId already exists {}", userId);
+            throw new RuntimeException("userId already exists");
+        }
 
-        // 3. 인증된 정보를 기반으로 JWT 토큰 생성
-        TokenDTO tokenDTO = tokenProvider.createToken(authentication);
+        return userRepository.save(user);
+    }
 
-        return tokenDTO;
+    public User getByCredentials(final String userId, final String password, final PasswordEncoder encoder) {
+        final User originalUser = userRepository.findByUserId(userId);
+
+        // matches 메서드를 이용해 패스워드가 같은지 확인
+        if(originalUser != null && encoder.matches(password, originalUser.getPassword())) {
+            return originalUser;
+        }
+        return null;
     }
 }
