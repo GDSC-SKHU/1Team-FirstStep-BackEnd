@@ -1,4 +1,4 @@
-package com.example.jwtexample.domain.DTO;
+package gdsc.com.firststep.login.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
