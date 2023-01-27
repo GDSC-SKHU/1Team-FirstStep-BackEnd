@@ -1,4 +1,4 @@
-package com.example.helpcs.domain.user;
+package gdsc.com.firststep.login.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
