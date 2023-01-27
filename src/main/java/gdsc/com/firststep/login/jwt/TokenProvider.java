@@ -1,6 +1,6 @@
-package com.example.helpcs.security;
+package gdsc.com.firststep.login.jwt;
 
-import com.example.helpcs.domain.user.User;
+import gdsc.com.firststep.login.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-
 @Slf4j
 @Service
 public class TokenProvider {
@@ -19,7 +18,7 @@ public class TokenProvider {
 	public String create(User user) {
 		// 기한 지금으로부터 1일로 설정
 		Date expiryDate = Date.from(
-						Instant.now()
+				Instant.now()
 						.plus(1, ChronoUnit.DAYS));
 
 		/*
@@ -37,14 +36,12 @@ public class TokenProvider {
 		 */
 		// JWT Token 생성
 		return Jwts.builder()
-						// header에 들어갈 내용 및 서명을 하기 위한 SECRET_KEY
-						.signWith(SignatureAlgorithm.HS512, SECRET_KEY)
-						// payload에 들어갈 내용
-						.setSubject(user.getId()) // sub
-						.setIssuer("demo app") // iss
-						.setIssuedAt(new Date()) // iat
-						.setExpiration(expiryDate) // exp
-						.compact();
+				// payload에 들어갈 내용
+				.setSubject(user.getId()) // sub
+				.setIssuer("demo app") // iss
+				.setIssuedAt(new Date()) // iat
+				.setExpiration(expiryDate) // exp
+				.compact();
 	}
 
 	public String validateAndGetUserId(String token) {
@@ -53,9 +50,9 @@ public class TokenProvider {
 		// 위조되지 않았다면 페이로드(Claims) 리턴
 		// 그 중 우리는 userId가 필요하므로 getBody를 부른다.
 		Claims claims = Jwts.parser()
-						.setSigningKey(SECRET_KEY)
-						.parseClaimsJws(token)
-						.getBody();
+				.setSigningKey(SECRET_KEY)
+				.parseClaimsJws(token)
+				.getBody();
 
 		return claims.getSubject();
 	}

@@ -1,4 +1,4 @@
-package com.example.helpcs.security;
+package gdsc.com.firststep.login.jwt;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

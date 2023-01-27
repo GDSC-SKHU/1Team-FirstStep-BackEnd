@@ -1,4 +1,4 @@
-package com.example.helpcs.security;
+package gdsc.com.firststep.login.jwt;
 
 import org.springframework.util.StringUtils;
 
